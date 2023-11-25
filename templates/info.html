@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>User Information</title>
+</head>
+<body>
+    <div class="container">
+        <h1>User Information</h1>
+        <p>Total Accounts Registered: {{ users|length }}</p> <!-- This line displays the number of registered accounts -->
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user[0] }}</td>
+                        <td>
+                            <form method="POST" action="/delete_user">
+                                <input type="hidden" name="username" value="{{ user[0] }}">
+                                <button type="submit" class="delete-button">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/dashboard">Back to Dashboard</a>
+    </div>
+</body>
+</html>
